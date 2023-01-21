@@ -10,7 +10,6 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
 
 ## Features
  * Support all present and future ReVanced and [ReVanced Extended](https://github.com//inotia00/revanced-patches) apps
- * Can build Magisk modules and non-root APKs
  * Updated daily with the latest versions of apps and patches in accordance with your configuration
  * Cleans APKs from unneeded libs to make them smaller
  * Fully open-source, every binary or APK is compiled without human intervention
@@ -23,8 +22,8 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
 
 #### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules and APKs everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
 
-## To include/exclude patches or patch more ReVanced Apps
-[**See the list of patches**](https://github.com/revanced/revanced-patches#-list-of-available-patches)
+## To include/exclude patches
+[**See the list of patches**](https://github.com/inotia00/revanced-patches/tree/revanced-extended/#-patches)
 
  * Star the repo :eyes:
  * [Fork the repo](https://github.com/Nicols0Mart/revanced-extended-magisk-module/fork) or use it as a template
@@ -34,7 +33,6 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
 
 To add more Revanced apps or know more about `config.toml`, read here [`CONFIG.md`](./CONFIG.md)
 
-To be able to use non-root variants of YouTube and YT Music, install [Vanced MicroG](https://github.com/TeamVanced/VancedMicroG/releases).
 
 # Building Locally
 Make sure you have JDK 17 installed. Then run:
