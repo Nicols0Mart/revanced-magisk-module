@@ -10,35 +10,40 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
 
 ## Features
  * Support all present and future ReVanced and [ReVanced Extended](https://github.com//inotia00/revanced-patches) apps
- * Updated daily with the latest versions of apps and patches in accordance with your configuration
- * Cleans APKs from unneeded libs to make them smaller
- * Fully open-source, every binary or APK is compiled without human intervention
+ * Only Magisk modules are built
+ * Updated daily with the latest versions of apps and patches
+ * Cleans APKs
  * Modules
-     * recompile invalidated odex for YouTube and Music apps for faster usage
+     * recompile invalidated odex for faster usage
      * receive updates from Magisk app
-     * do not break safetynet or trigger root detections used by certain apps
+     * do not break safetynet or trigger root detections
      * handle installation of the correct version of the stock app and all that
-     * mount the patched app immediately without needing to reboot
 
-#### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules and APKs everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
+#### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
 
 ## To include/exclude patches
 [**See the list of patches**](https://github.com/inotia00/revanced-patches/tree/revanced-extended/#-patches)
 
  * Star the repo :eyes:
  * [Fork the repo](https://github.com/Nicols0Mart/revanced-extended-magisk-module/fork) or use it as a template
- * Edit the options in [`config.toml`](./config.toml)
+ * Customize [`config.toml`](./config.toml)
  * Run the build [workflow](../../actions/workflows/build.yml)
- * Grab your modules and APKs from [releases](../../releases)
+ * Grab your modules  from [releases](../../releases)
 
 To add more Revanced apps or know more about `config.toml`, read here [`CONFIG.md`](./CONFIG.md)
 
 
 # Building Locally
-Make sure you have JDK 17 installed. Then run:
+## On Termux
+```console
+bash <(curl -sSf https://raw.githubusercontent.com/j-hc/revanced-magisk-module/main/build-termux.sh)
+```
+
+## On Desktop
+Make sure you have JDK 17 and jq installed. Then run:
 
 ```console
-$ git clone --recurse-submodules https://github.com/j-hc/revanced-magisk-module
+$ git clone --recurse https://github.com/j-hc/revanced-magisk-module
 $ cd revanced-magisk-module
 $ ./build.sh
 ```

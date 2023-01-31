@@ -2,7 +2,7 @@
 compression-level = 9 # compression level for module zips. between 1 and 9
 logging-to-file = true # enables logging of every patch process to a seperate file
 enable-magisk-update = true # set this to false if you do not want to receive updates for the module in magisk app
-parallel-jobs = 3 # max number of concurrent building jobs
+parallel-jobs = 1 # max number of concurrent building jobs
 build-mindetach-module = true
 
 # extended
@@ -41,5 +41,5 @@ included-patches = ""
 allow-alpha-version = true
 version = "auto"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music/"
-module-prop-name = "ytmusicrvx-magisk"
+module-prop-name = "ytmusicrvx-arm-magisk"
 arch = "arm-v7a"
