@@ -4,6 +4,8 @@
 [![Build Modules](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml/badge.svg)](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml)
 [![CI](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/ci.yml/badge.svg?event=schedule)](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/ci.yml)
 
+Extensive ReVanced builder
+
 Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-magisk-module/releases).
 
 [**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks it from updating them.
