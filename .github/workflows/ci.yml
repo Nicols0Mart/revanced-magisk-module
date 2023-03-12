@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           source utils.sh
-          toml_prep "$(cat config.toml)"
+          toml_prep "$(cat config-rv-ex.toml)"
 
           is_youtube_latest() {
             t=$(toml_get_table YouTube)
@@ -46,6 +46,16 @@ jobs:
             echo "current patches version: $cur_patches"
             echo "latest patches version: $last_patches"
             [ "$cur_patches" != "$last_patches" ] # test success=>build, fail=>dont build
+          }
+
+          is_integrations_latest() {
+            INTEGRATIONS_SRC=$(toml_get "$(toml_get_table "")" integrations-source) || INTEGRATIONS_SRC="revanced/revanced-integrations"
+            last_integrations_url=$(wget -nv --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}" -O- https://api.github.com/repos/${PATCHES_SRC}/releases/latest | json_get 'browser_download_url' | grep 'apk')
+            last_integrations=${last_integrations_url##*/}
+            cur_integrations=$(sed -n 's/.*Integrations: \(.*\)/\1/p' build.md | xargs)
+            echo "current integrations version: $cur_integrations"
+            echo "latest integrations version: $last_integrations"
+            [ "$cur_integrations" != "$last_integrations" ] # test success=>build, fail=>dont build
           }
 
           if ! git checkout update; then

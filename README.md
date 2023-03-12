@@ -1,18 +1,18 @@
 #### ⚠️ Do not download modules from 3rd party sources like random websites you found on Google. Only use this repository. I am not responsible for anything they may contain.
 
-# ReVanced Magisk Module
+# ReVanced Extended Magisk Module
 [![Build Modules](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml/badge.svg)](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml)
 [![CI](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/ci.yml/badge.svg?event=schedule)](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/ci.yml)
 
-Extensive ReVanced builder
+Extensive ReVanced Builder
 
 Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-magisk-module/releases).
 
-[**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks it from updating them.
+The [**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks it from updating them.
 
 ## Features
- * Support all present and future ReVanced and [ReVanced Extended](https://github.com//inotia00/revanced-patches) apps
- * Only Magisk modules are built
+ * Support all present and future [ReVanced Extended](https://github.com//inotia00/revanced-patches) apps
+ * Can build Magisk modules and non-root APKs
  * Updated daily with the latest versions of apps and patches
  * Optimize APKs and modules for size
  * Modules
@@ -24,7 +24,7 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
 #### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
 
 ## To include/exclude patches
-[**See the list of patches**](https://github.com/inotia00/revanced-patches/tree/revanced-extended/#-patches)
+[**See the list of patches**](https://github.com/inotia00/revanced-patches/tree/revanced-extended#-patches)
 
  * Star the repo :eyes:
  * [Fork the repo](https://github.com/Nicols0Mart/revanced-extended-magisk-module/fork) or use it as a template
@@ -38,14 +38,14 @@ To add more Revanced apps or know more about `config.toml`, read here [`CONFIG.m
 # Building Locally
 ## On Termux
 ```console
-bash <(curl -sSf https://raw.githubusercontent.com/j-hc/revanced-magisk-module/main/build-termux.sh)
+bash <(curl -sSf https://raw.githubusercontent.com/Nicols0Mart/revanced-extended-magisk-module/main/build-termux.sh)
 ```
 
 ## On Desktop
 Make sure you have JDK 17 and jq installed. Then run:
 
 ```console
-$ git clone --recurse https://github.com/j-hc/revanced-magisk-module
-$ cd revanced-magisk-module
+$ git clone --recurse https://github.com/Nicols0Mart/revanced-extended-magisk-module
+$ cd revanced-extended-magisk-module
 $ ./build.sh
 ```

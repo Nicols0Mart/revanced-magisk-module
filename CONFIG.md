@@ -22,9 +22,9 @@ There exists an example below with all defaults shown and all the keys explicitl
 **All keys are optional** (except download urls) and are assigned to their default values if not set explicitly.  
 
 ```toml
-patches-source = "revanced/revanced-patches" # where to fetch patches bundle from. default: "revanced/revanced-patches"
-integrations-source = "revanced/revanced-integrations" # where to fetch integrations from. default: "revanced/revanced-integrations"
-rv-brand = "ReVanced Extended" # rebrand from 'ReVanced' to something different. default: "ReVanced"
+patches-source = "inotia00/revanced-patches" # where to fetch patches bundle from. default: "inotia00/revanced-patches"
+integrations-source = "inotia00/revanced-integrations" # where to fetch integrations from. default: "inotia00/revanced-integrations"
+rv-brand = "ReVanced Extended" # rebrand from 'ReVanced' to something different. default: "ReVanced Extended"
 
 patches-version = "v2.160.0" # locks the patches version. default: latest available
 integrations-version = "v0.95.0" # locks the integrations version. default: latest available
@@ -50,3 +50,6 @@ arch = "arm64-v8a" # 'arm64-v8a', 'arm-v7a' or 'all'. default: all
 
 # Building ReVanced Extended
 Use [`config-rv-ex.toml`](./config-rv-ex.toml) as the config. Or you can run build.sh as: `./build.sh config-rv-ex.toml`
+
+# Building ReVanced
+Use the [original project](https://github.com/j-hc/revanced-magisk-module) instead of my fork.
