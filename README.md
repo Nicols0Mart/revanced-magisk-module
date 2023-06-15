@@ -1,4 +1,4 @@
-#### ⚠️ Do not download modules from 3rd party sources like random websites you found on Google. Only use this repository. I am not responsible for anything they may contain.
+#### ⚠️ Do not download modules from 3rd party sources like random websites you found on Google. There are many that uses my modules and impersonates ReVanced.
 
 # ReVanced Extended Magisk Module
 [![Build Modules](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml/badge.svg)](https://github.com/Nicols0Mart/revanced-extended-magisk-module/actions/workflows/build.yml)
@@ -8,7 +8,7 @@ Extensive ReVanced Builder
 
 Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-magisk-module/releases).
 
-The [**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks it from updating them.
+[**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks their forced updates.
 
 ## Features
  * Support all present and future ReVanced and [ReVanced Extended](https://github.com/inotia00/revanced-patches) apps
@@ -43,8 +43,6 @@ bash <(curl -sSf https://raw.githubusercontent.com/Nicols0Mart/revanced-extended
 ```
 
 ## On Desktop
-Make sure you have JDK 17 and jq installed. Then run:
-
 ```console
 $ git clone --recurse https://github.com/Nicols0Mart/revanced-extended-magisk-module
 $ cd revanced-extended-magisk-module
