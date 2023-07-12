@@ -30,7 +30,7 @@ included-patches = ""
 version = "auto"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music/"
 module-prop-name = "ytmusicrvx-magisk"
-arch = "arm64-v8a"
+apkmirror-arch = "arm64-v8a"
 
 [Twitter]
 enabled = true
