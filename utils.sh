@@ -6,7 +6,7 @@ BUILD_DIR="build"
 PKGS_LIST="${TEMP_DIR}/module-pkgs"
 
 if [ "${GITHUB_TOKEN:-}" ]; then GH_HEADER="Authorization: token ${GITHUB_TOKEN}"; else GH_HEADER=; fi
-NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
+#NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
 REBUILD=${REBUILD:-false}
 OS=$(uname -o)
 
@@ -55,7 +55,7 @@ get_rv_prebuilts() {
 
 	rv_cli_url=$(gh_req "https://api.github.com/repos/j-hc/revanced-cli/releases/latest" - | json_get 'browser_download_url') || return 1
 	local rv_cli_jar="${TEMP_DIR}/jhc-rv/${rv_cli_url##*/}"
-	echo "CLI: $(cut -d/ -f4 <<<"$rv_cli_url")/$(cut -d/ -f9 <<<"$rv_cli_url")  " >"$patches_dir/changelog.md"
+	echo "**CLI:** $(cut -d/ -f4 <<<"$rv_cli_url")/$(cut -d/ -f9 <<<"$rv_cli_url")  " >"$patches_dir/changelog.md"
 
 	local rv_integrations_rel="https://api.github.com/repos/${integrations_src}/releases/"
 	if [ "$integrations_ver" ]; then rv_integrations_rel+="tags/${integrations_ver}"; else rv_integrations_rel+="latest"; fi
@@ -64,7 +64,7 @@ get_rv_prebuilts() {
 
 	rv_integrations_url=$(gh_req "$rv_integrations_rel" - | json_get 'browser_download_url')
 	local rv_integrations_apk="${integrations_dir}/${rv_integrations_url##*/}"
-	echo "Integrations: $(cut -d/ -f4 <<<"$rv_integrations_url")/$(cut -d/ -f9 <<<"$rv_integrations_url")  " >>"$patches_dir/changelog.md"
+	echo "**Integrations:** $(cut -d/ -f4 <<<"$rv_integrations_url")/$(cut -d/ -f9 <<<"$rv_integrations_url")  " >>"$patches_dir/changelog.md"
 
 	rv_patches=$(gh_req "$rv_patches_rel" -)
 	rv_patches_changelog=$(json_get 'body' <<<"$rv_patches" | sed 's/\(\\n\)\+/\\n/g')
@@ -73,7 +73,7 @@ get_rv_prebuilts() {
 	rv_patches_url=$(grep 'jar' <<<"$rv_patches_dl")
 	local rv_patches_jar="${patches_dir}/${rv_patches_url##*/}"
 	[ -f "$rv_patches_jar" ] || REBUILD=true
-	echo "Patches: $(cut -d/ -f4 <<<"$rv_patches_url")/$(cut -d/ -f9 <<<"$rv_patches_url")  " >>"$patches_dir/changelog.md"
+	echo "**Patches:** $(cut -d/ -f4 <<<"$rv_patches_url")/$(cut -d/ -f9 <<<"$rv_patches_url")  " >>"$patches_dir/changelog.md"
 	echo -e "\n${rv_patches_changelog//# [/### [}\n---" >>"$patches_dir/changelog.md"
 
 	dl_if_dne "$rv_cli_jar" "$rv_cli_url" >&2
@@ -119,6 +119,10 @@ _req() {
 	else
 		local dlp
 		dlp="$(dirname "$2")/tmp.$(basename "$2")"
+		if [ -f "$dlp" ]; then
+			while [ -f "$dlp" ]; do sleep 1; done
+			return
+		fi
 		wget -nv -O "$dlp" --header="$3" "$1"
 		mv -f "$dlp" "$2"
 	fi
@@ -145,6 +149,7 @@ get_patch_last_supported_ver() {
 	inc_sel=${inc_sel:-false}
 	if [ "$4" = false ]; then inc_sel="${inc_sel} or .excluded==false"; fi
 	jq -r ".[]
+			| .name |= ascii_downcase | .name |= gsub(\"\\\\s\";\"-\")
 			| select(.compatiblePackages[].name==\"${1}\")
 			| select(${inc_sel})
 			| select(${exc_sel:-true})
@@ -358,17 +363,16 @@ build_rv() {
 				break
 			fi
 		done
-		if [ ! -f "$stock_apk" ]; then
-			epr "ERROR: Could not download ${table} from any provider"
-			return 0
-		fi
+		if [ ! -f "$stock_apk" ]; then return 0; fi
 	fi
-	log "${table}: ${version}"
+	log "**${table}:** ${version}"
 
 	if [ "${args[merge_integrations]}" = true ]; then p_patcher_args+=("-m ${args[integ]}"); fi
 	local microg_patch
-	microg_patch=$(jq -r ".[] | select(.compatiblePackages[].name==\"${pkg_name}\") | .name" "${args[ptjs]}" | grep -F microg || :)
+	microg_patch=$(jq -r ".[] | select(.compatiblePackages[].name==\"${pkg_name}\") | .name" "${args[ptjs]}" | grep -iF microg || :)
 	if [ "$microg_patch" ]; then
+		microg_patch="${microg_patch,,}"
+		microg_patch="${microg_patch// /-}"
 		p_patcher_args=("${p_patcher_args[@]//-[ei] ${microg_patch}/}")
 	fi
 
@@ -483,7 +487,7 @@ uninstall_sh() {
 	echo "${s//__ISBNDL/$2}" >"${3}/uninstall.sh"
 }
 customize_sh() {
-	local s="${CUSTOMIZE_SH//__PKGNAME/$1}"
+	local s="${CUSTOMIZE_SH//__PKGNAME/$1}"prop
 	s="${s//__EXTRCT/$4}"
 	# shellcheck disable=SC2001
 	if [ "$3" = "arm64-v8a" ]; then
