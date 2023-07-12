@@ -15,9 +15,9 @@ There exists an example below with all defaults shown and all the keys explicitl
 
 ```toml
 parallel-jobs = 1 # amount of cores to use for parallel patching, if not set nproc is used
-patches-source = "inotia00/revanced-patches" # where to fetch patches bundle from. default: "inotia00/revanced-patches"
-integrations-source = "inotia00/revanced-integrations" # where to fetch integrations from. default: "inotia00/revanced-integrations"
-rv-brand = "ReVanced Extended" # rebrand from 'ReVanced' to something different. default: "ReVanced Extended"
+patches-source = "revanced/revanced-patches" # where to fetch patches bundle from. default: "revanced/revanced-patches"
+integrations-source = "revanced/revanced-integrations" # where to fetch integrations from. default: "revanced/revanced-integrations"
+rv-brand = "ReVanced" # rebrand from 'ReVanced' to something different. default: "ReVanced"
 
 patches-version = "v2.160.0" # locks the patches version. default: latest available
 integrations-version = "v0.95.0" # locks the integrations version. default: latest available

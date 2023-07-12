@@ -22,7 +22,7 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
      * handle installation of the correct version of the stock app and all that
      * support Magisk and KernelSU
 
-#### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
+#### **Note that the [CI workflow](../../actions/workflows/ci.yml) is scheduled to build the modules and APKs everyday using GitHub Actions if there is a change in ReVanced patches. You may want to disable it.**
 
 ## To include/exclude patches or patch more ReVanced Apps
 [**See the list of patches**](https://j-hc.github.io/rvmm-config-gen/)
@@ -31,7 +31,7 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-extended-mag
  * [Fork the repo](https://github.com/Nicols0Mart/revanced-extended-magisk-module/fork) or use it as a template
  * Customize [`config.toml`](./config.toml) using [rvmm-config-gen](https://j-hc.github.io/rvmm-config-gen/)
  * Run the build [workflow](../../actions/workflows/build.yml)
- * Grab your modules  from [releases](../../releases)
+ * Grab your modules and APKs from [releases](../../releases)
 
 To add more Revanced apps or know more about `config.toml`, read here [`CONFIG.md`](./CONFIG.md)
 

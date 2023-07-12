@@ -31,7 +31,7 @@ if [ -d revanced-extended-magisk-module ]; then
 	git -C revanced-extended-magisk-module fetch
 	if git -C revanced-extended-magisk-module status | grep -q 'is behind'; then
 		pr "revanced-extended-magisk-module is not synced with upstream."
-		pr "Cloning revanced-magisk-module. config.toml will be preserved."
+		pr "Cloning revanced-extended-magisk-module. config.toml will be preserved."
 		cp -f revanced-extended-magisk-module/config.toml .
 		rm -rf revanced-extended-magisk-module
 		git clone https://github.com/Nicols0Mart/revanced-extended-magisk-module --recurse --depth 1

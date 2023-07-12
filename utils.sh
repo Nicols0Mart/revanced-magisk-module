@@ -6,7 +6,7 @@ BUILD_DIR="build"
 PKGS_LIST="${TEMP_DIR}/module-pkgs"
 
 if [ "${GITHUB_TOKEN:-}" ]; then GH_HEADER="Authorization: token ${GITHUB_TOKEN}"; else GH_HEADER=; fi
-#NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
+NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
 REBUILD=${REBUILD:-false}
 OS=$(uname -o)
 
@@ -487,7 +487,7 @@ uninstall_sh() {
 	echo "${s//__ISBNDL/$2}" >"${3}/uninstall.sh"
 }
 customize_sh() {
-	local s="${CUSTOMIZE_SH//__PKGNAME/$1}"prop
+	local s="${CUSTOMIZE_SH//__PKGNAME/$1}"
 	s="${s//__EXTRCT/$4}"
 	# shellcheck disable=SC2001
 	if [ "$3" = "arm64-v8a" ]; then
