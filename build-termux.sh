@@ -26,23 +26,23 @@ if [ ! -f ~/.rvmm_"$(date '+%Y%m')" ]; then
 fi
 
 if [ -f build.sh ]; then cd ..; fi
-if [ -d revanced-extended-magisk-module ]; then
-	pr "Checking for revanced-extended-magisk-module updates"
-	git -C revanced-extended-magisk-module fetch
-	if git -C revanced-extended-magisk-module status | grep -q 'is behind'; then
-		pr "revanced-extended-magisk-module is not synced with upstream."
-		pr "Cloning revanced-extended-magisk-module. config.toml will be preserved."
-		cp -f revanced-extended-magisk-module/config.toml .
-		rm -rf revanced-extended-magisk-module
-		git clone https://github.com/Nicols0Mart/revanced-extended-magisk-module --recurse --depth 1
-		mv -f config.toml revanced-extended-magisk-module/
+if [ -d revanced-magisk-module ]; then
+	pr "Checking for revanced-magisk-module updates"
+	git -C revanced-magisk-module fetch
+	if git -C revanced-magisk-module status | grep -q 'is behind'; then
+		pr "revanced-magisk-module is not synced with upstream."
+		pr "Cloning revanced-magisk-module. config.toml will be preserved."
+		cp -f revanced-magisk-module/config.toml .
+		rm -rf revanced-magisk-module
+		git clone https://github.com/Nicols0Mart/revanced-magisk-module --recurse --depth 1
+		mv -f config.toml revanced-magisk-module/
 	fi
 else
-	pr "Cloning revanced-extended-magisk-module."
-	git clone https://github.com/Nicols0Mart/revanced-extended-magisk-module --recurse --depth 1
+	pr "Cloning revanced-magisk-module."
+	git clone https://github.com/Nicols0Mart/revanced-magisk-module --recurse --depth 1
 	sed -i '/^enabled.*/d; /^\[.*\]/a enabled = false' revanced-extended-magisk-module/config.toml
 fi
-cd revanced-extended-magisk-module
+cd revanced-magisk-module
 chmod +x build.sh build-termux.sh
 
 if ask "Do you want to open the config.toml for customizations? [y/n]"; then
@@ -63,13 +63,13 @@ do
 done
 
 PWD=$(pwd)
-mkdir -p ~/storage/downloads/revanced-extended-magisk-module
+mkdir -p ~/storage/downloads/revanced-magisk-module
 for op in *; do
 	[ "$op" = "*" ] && continue
-	mv -f "${PWD}/${op}" ~/storage/downloads/revanced-extended-magisk-module/"${op}"
+	mv -f "${PWD}/${op}" ~/storage/downloads/revanced-magisk-module/"${op}"
 done
 
-pr "Outputs are available in /sdcard/Download/revanced-extended-magisk-module folder"
-am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-extended-magisk-module -t resource/folder
+pr "Outputs are available in /sdcard/Download/revanced-magisk-module folder"
+am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module -t resource/folder
 sleep 2
-am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-extended-magisk-module -t resource/folder
+am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module -t resource/folder
