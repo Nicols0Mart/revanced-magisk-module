@@ -8,9 +8,9 @@ Get the [latest CI release](https://github.com/Nicols0Mart/revanced-magisk-modul
 
 [**mindetach module**](https://github.com/j-hc/mindetach-magisk) in the releases section detaches YouTube and YouTube Music from Play Store and blocks their forced updates.
 
-####⚠️ This fork is used for building Revanced patched apps for my own personal use. I'm not responsible for any problems you may encounter if you use the provided modules or apks.
-####⚠️ Do not download modules from 3rd party sources like random websites you found on Google. There are many that uses my modules and impersonates ReVanced. 
-####⚠️ It is always recommended to build your own patched apks from the official Revanced Manager or Recanced Manager Extended.
+#### ⚠️ This fork is used for building Revanced patched apps for my own personal use. I'm not responsible for any problems you may encounter if you use the provided modules or apks.
+#### ⚠️ Do not download modules from 3rd party sources like random websites you found on Google. There are many that uses my modules and impersonates ReVanced. 
+#### ⚠️ It is always recommended to build your own patched apks from the official Revanced Manager or Recanced Manager Extended.
 
 ## Features
  * Support all present and future of the following ReVanced flavours:
