@@ -357,8 +357,8 @@ build_rv() {
 					apkm_arch="arm64-v8a"
 				elif [ "$arch" = "arm-v7a" ]; then
 					apkm_arch="armeabi-v7a"
-				else
-					apkm_arch="$arch"
+                                else
+                                        apkm_arch="$arch"
 				fi
 				if ! dl_apkmirror "${args[apkmirror_dlurl]}" "$version" "$stock_apk" APK "$apkm_arch" "${args[dpi]}"; then
 					epr "ERROR: Could not find any release of '${table}' with version '${version}', arch '${apkm_arch}' and dpi '${args[dpi]}' from APKMirror"
@@ -533,7 +533,7 @@ module_prop() {
 name=${2}
 version=v${3}
 versionCode=${NEXT_VER_CODE}
-author=j-hc
+author=j-hc, Nicols0Mart
 description=${4}" >"${6}/module.prop"
 
 	if [ "$ENABLE_MAGISK_UPDATE" = true ]; then echo "updateJson=${5}" >>"${6}/module.prop"; fi
