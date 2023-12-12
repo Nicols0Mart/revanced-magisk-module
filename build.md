@@ -1,4 +1,5 @@
 YouTube-Extended: 18.45.43  
+Music-Extended: 6.31.55  
 Twitch: 16.9.1  
 Twitter: 10.19.0-release.0  
 
