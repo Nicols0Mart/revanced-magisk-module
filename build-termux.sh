@@ -48,7 +48,7 @@ else
 		cd ..
 		cp -f revanced-magisk-module/config.toml .
 		rm -rf revanced-magisk-module
-		git clone https://github.com/j-hc/revanced-magisk-module --recurse --depth 1
+		git clone https://github.com/Nicols0Mart/revanced-magisk-module --recurse --depth 1
 		mv -f config.toml revanced-magisk-module/config.toml
 		cd revanced-magisk-module
 	fi
