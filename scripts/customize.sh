@@ -1,3 +1,4 @@
+#!/system/bin/sh
 # shellcheck disable=SC2148,SC2086
 ui_print ""
 
@@ -14,6 +15,13 @@ else
 fi
 set_perm_recursive $MODPATH/bin 0 0 0755 0777
 
+[ ! -d "/data/adb/modules/magisk_proc_monitor" ] && { # Check if Process monitor tool installed
+    MURL=http://github.com/HuskyDG/magisk_proc_monitor
+    ui_print "- Process monitor tool is not installed"
+    abort "  Please install it from $MURL"
+}
+
+
 nsenter -t1 -m -- grep __PKGNAME /proc/mounts | while read -r line; do
 	ui_print "* Un-mount"
 	mp=${line#* }
@@ -23,9 +31,8 @@ done
 am force-stop __PKGNAME
 
 INS=true
-if BASEPATH=$(pm path __PKGNAME); then
-	BASEPATH=${BASEPATH##*:}
-	BASEPATH=${BASEPATH%/*}
+if BASEPATH=$(pm path __PKGNAME); then # Check if app installed
+	BASEPATH=$(echo $BASEPATH | head -1 | sed 's/^package://g' | sed 's/\/base.apk$//g')
 	if [ ${BASEPATH:1:6} = system ]; then
 		ui_print "* __PKGNAME is a system app"
 	elif [ ! -d ${BASEPATH}/lib ]; then
@@ -36,7 +43,7 @@ if BASEPATH=$(pm path __PKGNAME); then
 		VERSION=$(dumpsys package __PKGNAME | grep -m1 versionName)
 		VERSION="${VERSION#*=}"
 		if [ "$VERSION" = __PKGVER ] || [ -z "$VERSION" ]; then
-			ui_print "* Skipping stock installation"
+			ui_print "* Skipping stock installation, app already installed with correct version."
 			INS=false
 		else
 			abort "ERROR: Version mismatch
@@ -44,12 +51,12 @@ if BASEPATH=$(pm path __PKGNAME); then
 			module:    __PKGVER
 			"
 		fi
-	elif cmpr $BASEPATH/base.apk $MODPATH/__PKGNAME.apk; then
+	elif cmpr $BASEPATH/revanced.apk $MODPATH/__PKGNAME.apk; then
 		ui_print "* __PKGNAME is up-to-date"
 		INS=false
 	fi
 fi
-if [ $INS = true ]; then
+if [ $INS = true ]; then # Installed stock app
 	if [ ! -f $MODPATH/__PKGNAME.apk ]; then
 		abort "ERROR: Stock __PKGNAME apk was not found"
 	fi
@@ -73,8 +80,7 @@ if [ $INS = true ]; then
 	fi
 	settings put global verifier_verify_adb_installs 1
 	if BASEPATH=$(pm path __PKGNAME); then
-		BASEPATH=${BASEPATH##*:}
-		BASEPATH=${BASEPATH%/*}
+		BASEPATH=$(echo $BASEPATH | head -1 | sed 's/^package://g' | sed 's/\/base.apk$//g')
 	else
 		abort "ERROR: install __PKGNAME manually and reflash the module"
 	fi
@@ -90,27 +96,32 @@ if [ -z "$(ls -A1 ${BASEPATHLIB})" ]; then
 	set_perm_recursive ${BASEPATH}/lib 1000 1000 755 755 u:object_r:apk_data_file:s0
 fi
 ui_print "* Setting Permissions"
-set_perm $MODPATH/base.apk 1000 1000 644 u:object_r:apk_data_file:s0
+set_perm $MODPATH/revanced.apk 1000 1000 644 u:object_r:apk_data_file:s0
 
 ui_print "* Mounting __PKGNAME"
-mkdir -p $NVBASE/rvhc
-RVPATH=$NVBASE/rvhc/${MODPATH##*/}.apk
-mv -f $MODPATH/base.apk $RVPATH
+#mkdir -p $NVBASE/rvhc
+#RVPATH=$NVBASE/rvhc/${MODPATH##*/}.apk
+#mv -f $MODPATH/revanced.apk $RVPATH
 
-if ! op=$(nsenter -t1 -m -- mount -o bind $RVPATH $BASEPATH/base.apk 2>&1); then
-	ui_print "ERROR: Mount failed!"
-	ui_print "$op"
-fi
+#if ! op=$(nsenter -t1 -m -- mount -o bind $MODPATH/revanced.apk $BASEPATH/base.apk 2>&1); then
+#	ui_print "ERROR: Mount failed!"
+#	ui_print "$op"
+#fi
 am force-stop __PKGNAME
 ui_print "* Optimizing __PKGNAME"
 nohup cmd package compile --reset __PKGNAME >/dev/null 2>&1 &
 
+# Disable battery optimization
+#sleep 1
+#ui_print "* Disable Battery Optimization for __PKGNAME"
+#dumpsys deviceidle whitelist +__PKGNAME > /dev/null 2>&1
+
 ui_print "* Cleanup"
 rm -rf $MODPATH/bin $MODPATH/__PKGNAME.apk
 
-for s in "uninstall.sh" "service.sh"; do
-	sed -i "2 i\NVBASE=${NVBASE}" $MODPATH/$s
-done
+#for s in "uninstall.sh" "service.sh"; do
+#	sed -i "2 i\NVBASE=${NVBASE}" $MODPATH/$s
+#done
 
 ui_print "* Done"
 ui_print "  by j-hc (github.com/j-hc)"

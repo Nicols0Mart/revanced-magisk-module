@@ -9,8 +9,11 @@ NEXT_VER_CODE=${NEXT_VER_CODE:-$(date +'%Y%m%d')}
 REBUILD=${REBUILD:-false}
 OS=$(uname -o)
 
-SERVICE_SH=$(cat scripts/service.sh)
 CUSTOMIZE_SH=$(cat scripts/customize.sh)
+SERVICE_SH=$(cat scripts/service.sh)
+DYNMOUNT_SH=$(cat scripts/dynmount.sh)
+MOUNT_SH=$(cat scripts/mount.sh)
+POSTFSDATA_SH=$(cat scripts/post-fs-data.sh)
 UNINSTALL_SH=$(cat scripts/uninstall.sh)
 
 # -------------------- json/toml --------------------
@@ -502,6 +505,10 @@ build_rv() {
 		uninstall_sh "$pkg_name" "$isbndl" "$base_template"
 		service_sh "$pkg_name" "$version" "$base_template"
 		customize_sh "$pkg_name" "$version" "$arch" "$extrct" "$base_template"
+		dynmount_sh "$pkg_name" "$version" "$base_template"
+		mount_sh "$pkg_name" "$base_template"
+		postfsdata_sh "$base_template"
+		
 		module_prop \
 			"${args[module_prop_name]}" \
 			"${app_name} ${args[rv_brand]}" \
@@ -513,7 +520,7 @@ build_rv() {
 		local module_output="${app_name_l}-${rv_brand_f}-magisk-v${version_f}-${arch_f}.zip"
 		if [ ! -f "$module_output" ] || [ "$REBUILD" = true ]; then
 			pr "Packing module ${table}"
-			cp -f "$patched_apk" "${base_template}/base.apk"
+			cp -f "$patched_apk" "${base_template}/revanced.apk"
 			if [ "${args[include_stock]}" = true ]; then cp -f "$stock_apk_module" "${base_template}/${pkg_name}.apk"; fi
 			pushd >/dev/null "$base_template" || abort "Module template dir not found"
 			zip -"$COMPRESSION_LEVEL" -FSqr "../../${BUILD_DIR}/${module_output}" .
@@ -545,6 +552,18 @@ service_sh() {
 	local s="${SERVICE_SH//__PKGNAME/$1}"
 	echo "${s//__PKGVER/$2}" >"${3}/service.sh"
 }
+dynmount_sh() {
+	local s="${DYNMOUNT_SH//__PKGNAME/$1}"
+	echo "${s//__PKGVER/$2}" >"${3}/dynmount.sh"
+}
+mount_sh() {
+	local s="${MOUNT_SH//__PKGNAME/$1}" 
+	echo "$s" >"${2}/mount.sh"
+}
+postfsdata_sh() {
+	echo "$POSTFSDATA_SH" >"${1}/post-fs-data.sh"
+}
+
 module_prop() {
 	echo "id=${1}
 name=${2}
